@@ -1,92 +1,48 @@
-let emulator;
+const PACKAGE_TAG = "[terminal-emulator] - ";
 let cursorsCurrentlyShown = true;
 let cursorBlinking;
 
-function emulatorInit() {
-  // initiate
-  emulator = new Emulator([
-    new Command(
-      new Input(
-        new Keystroke("init", "white", 0)
-      ),
-      new Output([
-        new Line([
-          new Keystroke("good&nbsp;", "white", 0),
-          new Keystroke("morning ", "white", 0),
-          new Keystroke("fellow ", "green", 0),
-          new Keystroke("internet ", "blue", 0),
-          new Keystroke("user", "red", 0),
-          new Keystroke("!!! ", "yellow", 0)
-        ]), new Line([
-          new Keystroke("I am ", "magenta", 0),
-          new Keystroke("noot-noot ", "cyan", 0)
-        ])
-      ])
-    ), new Command(
-      new Input(
-        new Keystroke("ls", "magenta", 0)
-      ),
-      new Output([
-        new Line([
-          new Keystroke("css", "blue", 1),
-          new Keystroke("index.html", "white", 1),
-          new Keystroke("less", "blue", 0)
-        ]), new Line([
-          new Keystroke("node_modules", "blue", 1),
-          new Keystroke("package.json", "white", 1)
-        ]), new Line([
-          new Keystroke("node_modules", "blue", 1),
-          new Keystroke("package.json", "white", 1)
-        ]), new Line([
-          new Keystroke("node_modules", "blue", 1),
-          new Keystroke("package.json", "white", 1)
-        ]), new Line([
-          new Keystroke("node_modules", "blue", 1),
-          new Keystroke("package.json", "white", 1)
-        ]), new Line([
-          new Keystroke("node_modules", "blue", 1),
-          new Keystroke("package.json", "white", 1)
-        ]), new Line([
-          new Keystroke("node_modules", "blue", 1),
-          new Keystroke("package.json", "white", 1)
-        ]), new Line([
-          new Keystroke("website", "blue", 1),
-          new Keystroke("js", "blue", 0)
-        ])
-      ])
-    ), new Command(
-      new Input(
-        new Keystroke("init", "white", 0)
-      ),
-      new Output([
-        new Line([
-          new Keystroke("goo d&nbsp;", "white", 0),
-          new Keystroke("morning ", "white", 0),
-          new Keystroke("fellow ", "green", 0),
-          new Keystroke("internet ", "blue", 0),
-          new Keystroke("user", "red", 0),
-          new Keystroke("!!! ", "yellow", 0)
-        ]), new Line([
-          new Keystroke("I am ", "magenta", 0),
-          new Keystroke("noot-noot ", "cyan", 0)
-        ])
-      ])
-    )
-  ], $("#emulator0"));
-  // hide by default
-  $(".emulator-container .emulator").addClass("hidden");
-  $(".emulator-container .emulator.hidden .command-container")
-  .not(":last")
-  .addClass("hidden");
+// event listeners
+if (document.addEventListener)
+  document.addEventListener("DOMContentLoaded", terminalEmulatorInit, false);
+else if (document.attachEvent)
+  document.attachEvent("onreadystatechange", terminalEmulatorInit);
+else window.onload = terminalEmulatorInit;
+
+// calls client's implementations at right times
+function terminalEmulatorInit() {
+  if (DEBUG) console.log(PACKAGE_TAG + "DOM ready; initialising ...");
   // simulate cursor blinking
   cursorBlinking = setInterval(cursorBlink, Emulator.cursorInterval);
-  // set up the possibility of user input
-  $(document).keyup(emulator.readUserInput.bind(emulator));
-  return 0;
+  // wait for page load
+  if (window.addEventListener)
+    window.addEventListener("load", terminalEmulatorPageloadedWrapper, false);
+  else if (window.attachEvent)
+    window.attachEvent("onload", terminalEmulatorPageloadedWrapper);
+  // call DOMReady
+  if (typeof terminalEmulatorDOMReady === "function")
+    return terminalEmulatorDOMReady();
+  else {
+    console.warn(PACKAGE_TAG +
+      "terminalEmulatorDOMReady() should be defined!");
+    return 1;
+  }
+}
+
+function terminalEmulatorPageloadedWrapper() {
+  if (DEBUG) console.log(PACKAGE_TAG +
+    "Page loaded; initialising trigger(s) ...");
+  if (typeof terminalEmulatorPageloaded === "function")
+    return terminalEmulatorPageloaded();
+  else {
+    console.warn(PACKAGE_TAG +
+      "terminalEmulatorPageLoaded() should be defined!");
+    return 1;
+  }
 }
 
 function cursorBlink() {
-  if(cursorsCurrentlyShown) {
+  if (cursorsCurrentlyShown) {
     $(".input .line .cursor").removeClass("shown");
     cursorsCurrentlyShown = false;
   } else {

@@ -21,8 +21,7 @@ const gulp = require('gulp'),
 
 // TASK COMPOSITIONS
 // builds assets
-const pipeStyle = gulp.series(compileStyle, joinStyle);
-const generate = gulp.parallel(pipeStyle, pipeJs, pipeImg, pipeHtml);
+const generate = gulp.parallel(compileStyle, compileJs, moveHtml);
 // cleans, then builds
 const build = gulp.series(clean, generate);
 
@@ -38,20 +37,11 @@ function logError(error) {
 // cleanup
 function clean(cb) {
 	// delete all existing assets and html to prevent caching issues
-	// del([assets + subs + ".*", dist + subs + ".html"]);
-	cb();
-}
-// images
-function pipeImg(cb) {
-	// copy all images from src to dist
-	gulp.src(src + "/images" + subs).on("error", logError)
-		// todo: gulp-imagemin
-		.pipe(gulp.dest(assets + "img/")).on("error", logError);
+	del([assets + subs + ".*", dist + subs + ".html"]);
 	cb();
 }
 // html
-function pipeHtml(cb) {
-	// copy all images from src to dist
+function moveHtml(cb) {
 	gulp.src(src + subs + ".html").on("error", logError)
 		.pipe(gulp.dest(dist)).on("error", logError);
 	cb();
@@ -65,36 +55,19 @@ function compileStyle(cb) {
 		.pipe(gulp.dest(assets + "css/"));
 	cb();
 }
-
-function joinStyle(cb) {
-	// gulp.src([]).on("error", logError)
-	// 	.pipe(concat("vendor.min.css")).on("error", logError)
-	// 	.pipe(cleanCSS()).on("error", logError)
-	// 	.pipe(gulp.dest(assets + "css/")).on("error", logError);
-	cb();
-}
 // javascript
-function pipeJs(cb) {
-	gulp.src([
-			node + "jquery/dist/jquery.slim.js", // slim: no extensions
-			src + "/js/*" + subs + ".js", // require extensions before main js
-			src + "/js/*.js"
-		]).on("error", logError)
+function compileJs(cb) {
+	gulp.src(node + "jquery/dist/jquery.slim.js") // slim: no extensions
+		.pipe(gulp.dest(assets + "js/")).on("error", logError);
+	gulp.src([src + "/js/*.js"]).on("error", logError)
 		.pipe(sourcemaps.init())
-		.pipe(concat("main.js")).on("error", logError)
+		.pipe(concat("main.min.js")).on("error", logError)
 		.pipe(uglify()).on("error", logError)
-		// todo: add .min suffix
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(assets + "js/")).on("error", logError);
 	cb();
 }
-
-// watch source files for changes, reload if necessary
-function srcWatcher(cb) {
-	gulp.watch([src + subs + ".*"], build).on("error", logError);
-	cb();
-}
 // exports
 exports.clean = clean;
-exports.build = build;
+exports.generate = generate;
 exports.default = build;
