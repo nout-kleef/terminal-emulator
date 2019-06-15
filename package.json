@@ -1,0 +1,28 @@
+{
+  "name": "terminal-emulator",
+  "version": "0.1.0",
+  "description": "emulates terminal commands in the browser using JQuery and some simple css",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nout-kleef/terminal-emulator.git"
+  },
+  "keywords": [
+    "terminal",
+    "emulator",
+    "js",
+    "javascript",
+    "css",
+    "console",
+    "shell"
+  ],
+  "author": "Nout Kleef",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nout-kleef/terminal-emulator/issues"
+  },
+  "homepage": "https://github.com/nout-kleef/terminal-emulator#readme"
+}
