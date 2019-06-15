@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="terminal emulator demo">
+  <meta name="author" content="Nout Kleef">
+  <link rel="shortcut icon" href="/assets/img/favicon-temp.ico" type="image/x-icon">
+  <link rel="icon" href="/assets/img/favicon-temp.ico" type="image/x-icon">
+  <!-- styling -->
+  <link rel="stylesheet" href="assets/css/main.css">
+  <!-- scripts -->
+  <script type="text/javascript" src="assets/js/main.js"></script>
+  <title>Terminal Emulator - demo</title>
+</head>
+
+<body>
+  <div class="main">
+    <!-- start terminal emulator -->
+    <div class="emulator-container">
+      <div id="emulator0" class="emulator"></div>
+    </div>
+  </div>
+  <script type="text/javascript">
+    function DOMReady() {
+      if (DEBUG) console.info("DOM ready..");
+      emulatorInit();
+    }
+
+    function pageReady() {
+      if (DEBUG) console.info("page loaded..");
+      scrollBehaviour();
+    }
+    if (document.addEventListener) document.addEventListener("DOMContentLoaded", DOMReady, false);
+    else if (document.attachEvent) document.attachEvent("onreadystatechange", DOMReady);
+    else window.onload = DOMReady;
+    if (window.addEventListener) window.addEventListener("load", pageReady, false);
+    else if (window.attachEvent) window.attachEvent("onload", pageReady);
+  </script>
+</body>
+
+</html>

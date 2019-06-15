@@ -1,0 +1,123 @@
+@import "variables.less";
+
+@emulator-black: #000000;
+@emulator-white: #d8d8d8;
+@emulator-green: #67F86F;
+@emulator-blue: #6A76FB;
+@emulator-red: #FD6F6B;
+@emulator-yellow: #FFFA72;
+@emulator-magenta: #FD7CFC;
+@emulator-cyan: #68FDFE;
+@emulator-purple: rgba(248, 28, 229, 0.8);
+@emulator-cursor-accent: @emulator-black;
+@emulator-font-size-xs: 22px;
+@emulator-font-size-sm: 23px;
+@emulator-font-size-md: 25px;
+@emulator-font-size-lg: 28px;
+@emulator-font-size-xl: 30px;
+
+.emulator-container {
+  margin-top: auto;
+  margin-bottom: auto;
+  padding-left: 0.8em;
+  padding-top: 0.5em;
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  .hidden {
+    display: none;
+  }
+
+  .emulator {
+    line-height: 1.3;
+    font-family: 'Fira Mono', monospace;
+    color: @emulator-white;
+    font-size: @emulator-font-size-xl;
+
+    @media (max-width: @grid-lg-max) {
+      font-size: @emulator-font-size-lg;
+    }
+
+    @media (max-width: @grid-md-max) {
+      font-size: @emulator-font-size-md;
+    }
+
+    @media (max-width: @grid-sm-max) {
+      font-size: @emulator-font-size-sm;
+    }
+
+    @media (max-width: @grid-xs-max) {
+      font-size: @emulator-font-size-xs;
+    }
+
+    .command-container {
+      white-space: nowrap;
+
+      .prompt {
+        display: inline;
+        color: @emulator-green;
+      }
+
+      .location {
+        display: inline;
+        color: @emulator-blue;
+      }
+
+      .input {
+        display: inline-block;
+
+        .cursor {
+          background-color: transparent;
+          height: 1em;
+          width: 0.5em;
+          display: inline-block;
+          border: 2px solid @emulator-purple;
+
+          &.shown {
+            background-color: @emulator-purple;
+          }
+        }
+      }
+
+      .output {}
+
+      .input .line,
+      .output .line {
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .black {
+      color: @emulator-black;
+    }
+
+    .white {
+      color: @emulator-white;
+    }
+
+    .green {
+      color: @emulator-green;
+    }
+
+    .blue {
+      color: @emulator-blue;
+    }
+
+    .red {
+      color: @emulator-red;
+    }
+
+    .yellow {
+      color: @emulator-yellow;
+    }
+
+    .magenta {
+      color: @emulator-magenta;
+    }
+
+    .cyan {
+      color: @emulator-cyan;
+    }
+  }
+}

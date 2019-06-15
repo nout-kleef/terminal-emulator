@@ -24,5 +24,19 @@
   "bugs": {
     "url": "https://github.com/nout-kleef/terminal-emulator/issues"
   },
-  "homepage": "https://github.com/nout-kleef/terminal-emulator#readme"
+  "homepage": "https://github.com/nout-kleef/terminal-emulator#readme",
+  "devDependencies": {
+    "del": "^4.1.1",
+    "gulp": "^4.0.2",
+    "gulp-clean-css": "^4.2.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-less": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.5",
+    "gulp-uglify-es": "^1.0.4",
+    "gulp-util": "^3.0.8",
+    "less-plugin-autoprefix": "^2.0.0"
+  },
+  "dependencies": {
+    "jquery": "^3.4.1"
+  }
 }
