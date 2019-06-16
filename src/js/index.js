@@ -32,6 +32,8 @@ function terminalEmulatorInit() {
 function terminalEmulatorPageloadedWrapper() {
   if (DEBUG) console.log(PACKAGE_TAG +
     "Page loaded; initialising trigger(s) ...");
+  if (typeof $ !== "function")
+    console.error(PACKAGE_TAG + "you need to load JQuery before loading me!");
   if (typeof terminalEmulatorPageloaded === "function")
     return terminalEmulatorPageloaded();
   else {
