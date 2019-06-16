@@ -37,7 +37,12 @@ function logError(error) {
 // cleanup
 function clean(cb) {
 	// delete all existing assets and html to prevent caching issues
-	del([assets + subs + ".*", dist + subs + ".html"]);
+	del([
+		assets + "*/" + subs + ".*", // empty any subdirectory
+		assets + "*.*"
+		/* delete all files that arent directories
+			(*.* can theoretically still be a directory. I know.) */
+	]);
 	cb();
 }
 // html

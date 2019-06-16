@@ -4,7 +4,7 @@
   "description": "emulates terminal commands in the browser using JQuery and some simple css",
   "main": "index.js",
   "scripts": {
-    "test": "gulp"
+    "test": "echo 'No test specified.'"
   },
   "repository": {
     "type": "git",
