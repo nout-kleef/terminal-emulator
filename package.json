@@ -1,6 +1,6 @@
 {
   "name": "terminal-emulator",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "emulates terminal commands in the browser using JQuery and some simple css",
   "main": "index.js",
   "scripts": {
