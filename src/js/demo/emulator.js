@@ -80,12 +80,25 @@ function terminalEmulatorDOMReady() {
 }
 
 function terminalEmulatorPageloaded() {
-    $(window).scroll(emulatorScrollBehaviour);
+    // you have many options when deciding when to start emulation:
+
+    /* SCROLLING - once emulator-container is in view
+        note that this requires content to actually fill up more
+        than the window's height */
+    // $(window).scroll(emulatorBehaviour);
+
+    // DELAY - simply wait for a bit
+    setTimeout(emulatorBehaviour, 2500);
+
+    /* ANYTHING ELSE - obviously, you can use whatever you fancy.
+        if you're feeling particularly generous, you
+        could add some implementation here and submit a pull request! */
+
     return 0;
 }
 
-// an example of how to trigger the activation of an Emulator instance: scroll
-function emulatorScrollBehaviour() {
+// trigger handler example
+function emulatorBehaviour() {
     // emulator animations
     $(".emulator-container .emulator.hidden").each(function () {
         if (elementInView($(this).parent())) {

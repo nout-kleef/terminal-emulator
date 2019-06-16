@@ -1,21 +1,5 @@
 @import "variables.less";
 
-@emulator-black: #000000;
-@emulator-white: #d8d8d8;
-@emulator-green: #67F86F;
-@emulator-blue: #6A76FB;
-@emulator-red: #FD6F6B;
-@emulator-yellow: #FFFA72;
-@emulator-magenta: #FD7CFC;
-@emulator-cyan: #68FDFE;
-@emulator-purple: rgba(248, 28, 229, 0.8);
-@emulator-cursor-accent: @emulator-black;
-@emulator-font-size-xs: 22px;
-@emulator-font-size-sm: 23px;
-@emulator-font-size-md: 25px;
-@emulator-font-size-lg: 28px;
-@emulator-font-size-xl: 30px;
-
 .emulator-container {
   margin-top: auto;
   margin-bottom: auto;
@@ -23,6 +7,10 @@
   padding-top: 0.5em;
   overflow-x: hidden;
   overflow-y: auto;
+  // border: 2px dotted #333;
+  height: 50vh;
+  margin-bottom: 2rem;
+  background-color: @emulator-black;
 
   .hidden {
     display: none;
@@ -78,8 +66,6 @@
           }
         }
       }
-
-      .output {}
 
       .input .line,
       .output .line {
