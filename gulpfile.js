@@ -57,11 +57,15 @@ function compileStyle(cb) {
 }
 // javascript
 function compileJs(cb) {
+	// JQuery (not actually included, just there for demo page)
 	gulp.src(node + "jquery/dist/jquery.slim.js") // slim: no extensions
 		.pipe(gulp.dest(assets + "js/")).on("error", logError);
+	// demo script, implementing example usage
+	gulp.src(src + "/js/demo/emulator.js")
+		.pipe(gulp.dest(assets + "js/demo/")).on("error", logError);
 	gulp.src([src + "/js/*.js"]).on("error", logError)
 		.pipe(sourcemaps.init())
-		.pipe(concat("main.min.js")).on("error", logError)
+		.pipe(concat("terminal-emulator.min.js")).on("error", logError)
 		.pipe(uglify()).on("error", logError)
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(assets + "js/")).on("error", logError);
