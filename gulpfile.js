@@ -2,7 +2,6 @@
 const src = "./src",
 	dist = "./dist/",
 	node = "./node_modules/",
-	assets = dist + "assets/",
 	subs = "/**/*";
 
 // PLUGINS
@@ -38,8 +37,8 @@ function logError(error) {
 function clean(cb) {
 	// delete all existing assets and html to prevent caching issues
 	del([
-		assets + "*/" + subs + ".*", // empty any subdirectory
-		assets + "*.*"
+		dist + "*/" + subs + ".*", // empty any subdirectory
+		dist + "*.*"
 		/* delete all files that arent directories
 			(*.* can theoretically still be a directory. I know.) */
 	]);
@@ -57,23 +56,23 @@ function compileStyle(cb) {
 		.pipe(sourcemaps.init())
 		.pipe(less( /*{plugins: [autoprefix]}*/ )).on("error", logError)
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(assets + "css/"));
+		.pipe(gulp.dest(dist));
 	cb();
 }
 // javascript
 function compileJs(cb) {
 	// JQuery (not actually included, just there for demo page)
 	gulp.src(node + "jquery/dist/jquery.slim.js") // slim: no extensions
-		.pipe(gulp.dest(assets + "js/")).on("error", logError);
+		.pipe(gulp.dest(dist)).on("error", logError);
 	// demo script, implementing example usage
 	gulp.src(src + "/js/demo/emulator.js")
-		.pipe(gulp.dest(assets + "js/demo/")).on("error", logError);
+		.pipe(gulp.dest(dist)).on("error", logError);
 	gulp.src([src + "/js/*.js"]).on("error", logError)
 		.pipe(sourcemaps.init())
 		.pipe(concat("terminal-emulator.min.js")).on("error", logError)
 		.pipe(uglify()).on("error", logError)
 		.pipe(sourcemaps.write())
-		.pipe(gulp.dest(assets + "js/")).on("error", logError);
+		.pipe(gulp.dest(dist)).on("error", logError);
 	cb();
 }
 // exports
