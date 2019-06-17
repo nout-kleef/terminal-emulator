@@ -55,6 +55,7 @@ function compileStyle(cb) {
 	gulp.src(src + "/less/main.less").on("error", logError)
 		.pipe(sourcemaps.init())
 		.pipe(less( /*{plugins: [autoprefix]}*/ )).on("error", logError)
+		.pipe(concat("terminal-emulator.css")).on("error", logError)
 		.pipe(sourcemaps.write())
 		.pipe(gulp.dest(dist));
 	cb();
