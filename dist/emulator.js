@@ -70,7 +70,7 @@ function terminalEmulatorDOMReady() {
                 ])
             ])
         )
-    ], $("#emulator0"));
+    ], $("#emulator0"), "root", "localhost", 160, 200);
     // hide by default
     $(".emulator-container .emulator").addClass("hidden");
     $(".emulator-container .emulator.hidden .command-container")

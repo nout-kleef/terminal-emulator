@@ -2,17 +2,17 @@ class Output {
   constructor(output) {
     this.readLength = 0;
     this._output = output; // array of Line instances
-    for(let i = 0; i < output.length; i++)
+    for (let i = 0; i < output.length; i++)
       this.readLength += output[i].readLength;
   }
   toString() {
     let representation = Output._DOMOpen;
-    for(let i = 0; i < this._output.length; i++)
+    for (let i = 0; i < this._output.length; i++)
       representation += this._output[i].toString();
     return representation + Output._DOMClose;
   }
-  pauseDuration() {
-    const duration = this.readLength * Emulator.readingSpeed;
+  pauseDuration(emulator) {
+    const duration = this.readLength * emulator.readingSpeed;
     return DEBUG ? duration * .3 : duration;
   }
   emulate(emulator, preEmulationHtml, inputRepresentation) {
@@ -20,11 +20,11 @@ class Output {
     this.write(emulator, preEmulationHtml, inputRepresentation);
     // on to the next round
     emulator.changeState(3);
-    if(emulator.commands.length > 0) {
+    if (emulator.commands.length > 0) {
       const nextCommand = emulator.commands.splice(0, 1);
-      setTimeout(function() {
+      setTimeout(function () {
         nextCommand[0].emulate(emulator, emulator.commands);
-      }, this.pauseDuration());
+      }, this.pauseDuration(emulator));
     }
   }
   write(emulator, preEmulationHtml, inputRepresentation) {

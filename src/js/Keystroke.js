@@ -8,9 +8,9 @@ class Keystroke {
   }
   toString(cutoff, isInput, emulator, insertCursor) {
     let representation = isInput ? Input.DOMOpen + Keystroke.prompt(emulator) +
-    Keystroke.location(emulator) : "";
+      Keystroke.location(emulator) : "";
     representation += Keystroke._DOMOpen(this._css);
-    if(typeof cutoff === "number") {
+    if (typeof cutoff === "number") {
       // used for emulation (input)
       representation += this._text.substring(0, cutoff + 1);
     } else {
@@ -28,29 +28,29 @@ class Keystroke {
   _type(emulator, output, queue, preEmulationHtml, currentCutoff) {
     // update emulator html
     const representation = Command.DOMOpen(false) +
-    this.toString(currentCutoff, true, emulator, true) + Command.DOMClose;
+      this.toString(currentCutoff, true, emulator, true) + Command.DOMClose;
     $(emulator.element).html(preEmulationHtml + representation);
     // update & callback
-    if(currentCutoff >= this._text.length - 1) {
+    if (currentCutoff >= this._text.length - 1) {
       // end reached. pause and show output
-      setTimeout(function() {
+      setTimeout(function () {
         output.emulate(
-          emulator, preEmulationHtml, this.toString(void(0), true, emulator)
+          emulator, preEmulationHtml, this.toString(void (0), true, emulator)
         );
       }.bind(this), Emulator.enterPause);
     } else {
       const lottery = Math.random();
       let newCutoff = currentCutoff;
-      if(lottery < Emulator.backspaceProb) {
+      if (lottery < Emulator.backspaceProb) {
         // undo last character
         newCutoff = Math.max(0, currentCutoff - 1);
-      } else if(lottery >= Emulator.backspaceProb + Emulator.idleProb) {
+      } else if (lottery >= Emulator.backspaceProb + Emulator.idleProb) {
         // "type"
         newCutoff = Math.min(currentCutoff + 1, this._text.length - 1);
       } // else: idle
-      setTimeout(function() {
+      setTimeout(function () {
         this._type(emulator, output, queue, preEmulationHtml, newCutoff);
-      }.bind(this), Emulator.emulationSpeed);
+      }.bind(this), emulator.emulationSpeed);
     }
   }
   static prompt(emulator) {
